@@ -1,0 +1,14 @@
+services:
+  userscrud-app:
+    build:
+      context: .
+    ports:
+      - "5000:80"  # Maps the container port 80 to localhost:5000
+    volumes:
+      - ./UsersCRUD.WebUI:/app/UsersCRUD.WebUI  # Mounts the local WebUI folder to container
+      - ./UsersCRUD.Domain:/app/UsersCRUD.Domain  # Mounts the local Domain folder to container
+      - ./UsersCRUD.Infrastructure:/app/UsersCRUD.Infrastructure  # Mounts the local Infrastructure folder
+      - /app/bin  # Avoids sharing bin and obj directories
+      - /app/obj
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development

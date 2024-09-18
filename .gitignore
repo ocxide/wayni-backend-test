@@ -1,0 +1,81 @@
+# .NET Core specific
+bin/
+obj/
+*.dll
+*.exe
+*.log
+*.sql
+*.sqlite
+*.pdb
+*.cache
+*.config
+*.csproj.user
+*.db
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider specific files
+.idea/
+*.sln.iml
+
+# Visual Studio Code specific
+.vscode/
+
+# NuGet packages
+*.nupkg
+# The packages folder can be ignored if you enable package restore
+**/packages/*
+# Uncomment if necessary
+#!**/packages/build/
+#!**/packages/repositories.config
+
+# Include the NuGet target and build files
+!**/packages/*.targets
+!**/packages/*.props
+!**/packages/*.xml
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+$RECYCLE.BIN/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Mac-specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+*.log
+*.nlog
+*.trace
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# OS-specific files
+*.DS_Store
+*.AppleDouble
+
+# Temporary files
+~$*
+*.tmp
+*.temp
+
+# JetBrains Rider
+.idea/
+*.sln.iml
