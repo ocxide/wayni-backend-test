@@ -12,3 +12,18 @@ services:
       - /app/obj
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"  # Exposes MySQL on localhost:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: example  # MySQL root user password
+      MYSQL_DATABASE: UsersCRUD     # Initial database created
+    volumes:
+      - mysql_data:/var/lib/mysql   # Persist database data
+
+volumes:
+  mysql_data:
