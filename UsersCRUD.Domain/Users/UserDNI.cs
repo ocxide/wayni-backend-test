@@ -1,12 +1,9 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace UsersCRUD.Domain.Users;
 
-[ComplexType]
-public record UserDNI(string Document)
+public readonly record struct UserDNI(string Value)
 {
-    public string Document { get; init; } =
-        (Document.Count() == 8 && Document.All(char.IsDigit))
-            ? Document
+    public string Value { get; init; } =
+        (Value.Count() == 8 && Value.All(char.IsDigit))
+            ? Value
             : throw new ArgumentException("DNI must have 8 digits");
 }
