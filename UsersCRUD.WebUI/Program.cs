@@ -1,11 +1,13 @@
 using UsersCRUD.Infrastructure;
+using UsersCRUD.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAppDbContext(builder.Configuration);
+builder.Services.AddApplicationServices();
+//
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddAppDbContext(builder.Configuration);
 
 var app = builder.Build();
 
@@ -23,8 +25,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
-app.MapControllerRoute(name: "default", pattern: "{controller=Users}/{action=Index}/{id?}");
 
 app.MapGet(
     "/",
