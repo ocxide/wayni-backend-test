@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "dev": "node_modules/.bin/postcss css/main.css -o lib/main.css --watch --verbose"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.12",
+    "postcss-cli": "11.0.0"
+  }
+}
