@@ -1,0 +1,4 @@
+[[overrides]]
+files="*.cshtml"
+[overrides.options]
+parser="html"
