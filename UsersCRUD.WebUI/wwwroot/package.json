@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "watch:tailwind": "node_modules/.bin/tailwindcss --watch=always -i ../wwwroot/css/main.css -o ../wwwroot/lib/main.css"
+    "watch:tailwind": "node_modules/.bin/tailwindcss --watch=always -i ../css/main.css -o ../lib/main.css"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",

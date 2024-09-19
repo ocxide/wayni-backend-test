@@ -1,5 +1,5 @@
 FROM node:20
-WORKDIR /styles/UsersCRUD.WebUI/postcss
+WORKDIR /app/postcss
 
 COPY ./UsersCRUD.WebUI/wwwroot/package.json .
 COPY ./UsersCRUD.WebUI/wwwroot/package-lock.json .

@@ -31,9 +31,9 @@ services:
       context: .
       dockerfile: postcss.Dockerfile
     volumes:
-      - ./UsersCRUD.WebUI/Views:/styles/UsersCRUD.WebUI/Views
-      - ./UsersCRUD.WebUI/wwwroot/css:/styles/UsersCRUD.WebUI/wwwroot/css
-      - ./UsersCRUD.WebUI/wwwroot/lib:/styles/UsersCRUD.WebUI/wwwroot/lib
+      - ./UsersCRUD.WebUI/Views:/app/Views
+      - ./UsersCRUD.WebUI/wwwroot/css:/app/css
+      - ./UsersCRUD.WebUI/wwwroot/lib:/app/lib
 
 volumes:
   mysql_data:
