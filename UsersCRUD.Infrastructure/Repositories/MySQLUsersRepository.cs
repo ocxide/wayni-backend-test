@@ -29,4 +29,10 @@ public class MySQLUsersRepository : IUsersRepository
         var user = await dbContext.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
 				return user;
     }
+
+    public async Task UpdateOne(User user)
+    {
+				dbContext.Users.Update(user);
+				await dbContext.SaveChangesAsync();
+    }
 }

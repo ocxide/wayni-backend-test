@@ -54,7 +54,9 @@ public class UsersController : Controller
     [HttpGet]
     public async Task<IActionResult> Edit(UserId id)
     {
-        var user = (await mediator.Send(new Application.Users.Queries.GetById.Request { Id = id })).Unwrap();
+        var user = (
+            await mediator.Send(new Application.Users.Queries.GetById.Request { Id = id })
+        ).Unwrap();
         return View(
             new UserModel
             {
@@ -65,20 +67,18 @@ public class UsersController : Controller
         );
     }
 
-		[HttpPost]
-		public async Task<IActionResult> Edit(UserId id, UserModel user)
-		{
-				if (!ModelState.IsValid)
-				{
-						return View(user);
-				}
+    [HttpPost]
+    public async Task<IActionResult> Edit(UserId id, UserModel user)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(user);
+        }
 
-				var response = await mediator.Send(
-						new Application.Users.Commands.UpdateOne.Request
-						{
-								Id = id,
-								User = user.ToDto()
-						}
-				);
-		}
+        await mediator.Send(
+            new Application.Users.Commands.UpdateOne.Request { User = user.ToDto().ToUser(id) }
+        );
+
+				return RedirectToAction("Index");
+    }
 }
