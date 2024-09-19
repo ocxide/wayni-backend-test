@@ -5,9 +5,9 @@ namespace UsersCRUD.Application.Users.Commands.CreateOne;
 
 public class Handler : IRequestHandler<Request>
 {
-    private readonly IUserRepository userRepository;
+    private readonly IUsersRepository userRepository;
 
-    public Handler(IUserRepository userRepository)
+    public Handler(IUsersRepository userRepository)
     {
         this.userRepository = userRepository;
     }

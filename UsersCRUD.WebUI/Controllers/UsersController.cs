@@ -1,25 +1,31 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using UsersCRUD.WebUI.Models;
+using MediatR;
 
 namespace UsersCRUD.WebUI.Controllers;
 
 public class UsersController : Controller
 {
     private readonly ILogger<UsersController> _logger;
+    private readonly IMediator mediator;
 
-    public UsersController(ILogger<UsersController> logger)
+    public UsersController(ILogger<UsersController> logger, IMediator mediator)
     {
+        Console.WriteLine("UsersController");
         _logger = logger;
+        this.mediator = mediator;
     }
 
     public IActionResult Index()
     {
+        Console.WriteLine("index");
         return View();
     }
 
     public IActionResult New()
     {
+        Console.WriteLine("New");
         return View();
     }
 
@@ -31,14 +37,18 @@ public class UsersController : Controller
         );
     }
 
-		[HttpPost]
-    public IActionResult New(UserModel user)
+    [HttpPost]
+    public async Task<IActionResult> New(UserModel user)
     {
-			if (!ModelState.IsValid) {
-				return View(user);
-			}
+        if (!ModelState.IsValid)
+        {
+            return View(user);
+        }
 
-			Console.WriteLine($"User: {user.Name}, {user.Surname}, {user.DNI}");
-			return RedirectToAction("Index");
+        await mediator.Send(
+            new Application.Users.Commands.CreateOne.Request { User = user.ToDto() }
+        );
+
+        return RedirectToAction("Index");
     }
 }

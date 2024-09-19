@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UsersCRUD.Domain.Users;
+using UsersCRUD.Infrastructure.Repositories;
 
 namespace UsersCRUD.Infrastructure;
 
@@ -17,6 +19,9 @@ public static class AppDbContextServices
                 new MySqlServerVersion(new Version(8, 0))
             )
         );
+
+				services.AddScoped<IUsersRepository, MySQLUsersRepository>();
+
         return services;
     }
 }
