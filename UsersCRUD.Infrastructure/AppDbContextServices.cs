@@ -15,12 +15,22 @@ public static class AppDbContextServices
     {
         services.AddDbContext<AppDbContext>(opts =>
             opts.UseMySql(
-                Configuration.GetConnectionString("DefaultConnection"),
-                new MySqlServerVersion(new Version(8, 0))
-            )
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    new MySqlServerVersion(new Version(8, 0)),
+                    cfg => cfg.EnableRetryOnFailure()
+                )
+                .EnableDetailedErrors()
         );
 
-				services.AddScoped<IUsersRepository, MySQLUsersRepository>();
+        services.AddScoped<IUsersRepository, MySQLUsersRepository>();
+
+        return services;
+    }
+
+    public static IServiceProvider UseDbMigrations(this IServiceProvider services)
+    {
+        var scope = services.CreateScope();
+        scope.ServiceProvider.GetRequiredService<AppDbContext>().Database.Migrate();
 
         return services;
     }

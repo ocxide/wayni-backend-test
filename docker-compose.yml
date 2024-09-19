@@ -3,12 +3,12 @@ services:
     build:
       context: .
     ports:
-      - "5000:80"  # Maps the container port 80 to localhost:5000
+      - "5000:80" # Maps the container port 80 to localhost:5000
     volumes:
-      - ./UsersCRUD.WebUI:/app/UsersCRUD.WebUI  # Mounts the local WebUI folder to container
-      - ./UsersCRUD.Domain:/app/UsersCRUD.Domain  # Mounts the local Domain folder to container
-      - ./UsersCRUD.Infrastructure:/app/UsersCRUD.Infrastructure  # Mounts the local Infrastructure folder
-      - /app/bin  # Avoids sharing bin and obj directories
+      - ./UsersCRUD.WebUI:/app/UsersCRUD.WebUI # Mounts the local WebUI folder to container
+      - ./UsersCRUD.Domain:/app/UsersCRUD.Domain # Mounts the local Domain folder to container
+      - ./UsersCRUD.Infrastructure:/app/UsersCRUD.Infrastructure # Mounts the local Infrastructure folder
+      - /app/bin # Avoids sharing bin and obj directories
       - /app/obj
       - css_lib:/app/UsersCRUD.WebUI/wwwroot/lib
     environment:
@@ -16,16 +16,18 @@ services:
     depends_on:
       - mysql
       - postcss
+    links:
+      - mysql
 
   mysql:
     image: mysql:8.0
     ports:
-      - "3306:3306"  # Exposes MySQL on localhost:3306
+      - "3306:3306" # Exposes MySQL on localhost:3306
     environment:
-      MYSQL_ROOT_PASSWORD: example  # MySQL root user password
-      MYSQL_DATABASE: UsersCRUD     # Initial database created
+      MYSQL_ROOT_PASSWORD: root # MySQL root user password
+      MYSQL_DATABASE: UsersCRUD # Initial database created
     volumes:
-      - mysql_data:/var/lib/mysql   # Persist database data
+      - mysql_data:/var/lib/mysql # Persist database data
 
   postcss:
     build:

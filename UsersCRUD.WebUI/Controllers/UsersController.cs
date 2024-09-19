@@ -1,7 +1,7 @@
 using System.Diagnostics;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using UsersCRUD.WebUI.Models;
-using MediatR;
 
 namespace UsersCRUD.WebUI.Controllers;
 
@@ -12,20 +12,17 @@ public class UsersController : Controller
 
     public UsersController(ILogger<UsersController> logger, IMediator mediator)
     {
-        Console.WriteLine("UsersController");
         _logger = logger;
         this.mediator = mediator;
     }
 
     public IActionResult Index()
     {
-        Console.WriteLine("index");
         return View();
     }
 
     public IActionResult New()
     {
-        Console.WriteLine("New");
         return View();
     }
 
@@ -45,9 +42,7 @@ public class UsersController : Controller
             return View(user);
         }
 
-        await mediator.Send(
-            new Application.Users.Commands.CreateOne.Request { User = user.ToDto() }
-        );
+        await mediator.Send(new Application.Users.Commands.CreateOne.Request { User = user.ToDto() });
 
         return RedirectToAction("Index");
     }
