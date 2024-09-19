@@ -26,6 +26,19 @@ public class UsersController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View(
+            new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier }
+        );
+    }
+
+		[HttpPost]
+    public IActionResult New(UserModel user)
+    {
+			if (!ModelState.IsValid) {
+				return View(user);
+			}
+
+			Console.WriteLine($"User: {user.Name}, {user.Surname}, {user.DNI}");
+			return RedirectToAction("Index");
     }
 }
