@@ -6,4 +6,9 @@ public readonly record struct UserDNI(string Value)
         (Value.Count() == 8 && Value.All(char.IsDigit))
             ? Value
             : throw new ArgumentException("DNI must have 8 digits");
+
+		public override string? ToString()
+		{
+				return Value;
+		}
 }

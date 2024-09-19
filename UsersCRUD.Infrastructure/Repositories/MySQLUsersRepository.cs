@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using UsersCRUD.Domain.Users;
 
 namespace UsersCRUD.Infrastructure.Repositories;
@@ -14,6 +15,11 @@ public class MySQLUsersRepository : IUsersRepository
     public async Task CreateOne(User user)
     {
         await dbContext.Users.AddAsync(user);
-				await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<User>> GetAll()
+    {
+        return await dbContext.Users.ToListAsync();
     }
 }

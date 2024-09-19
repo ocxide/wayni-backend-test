@@ -16,9 +16,10 @@ public class UsersController : Controller
         this.mediator = mediator;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var users = await mediator.Send(new Application.Users.Queries.GetAll.Request());
+        return View(new { Users = users });
     }
 
     public IActionResult New()
