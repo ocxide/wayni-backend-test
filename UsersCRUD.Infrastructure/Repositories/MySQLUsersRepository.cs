@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using UsersCRUD.Domain.LanguageExt;
 using UsersCRUD.Domain.Users;
 
 namespace UsersCRUD.Infrastructure.Repositories;
@@ -21,5 +22,11 @@ public class MySQLUsersRepository : IUsersRepository
     public async Task<IEnumerable<User>> GetAll()
     {
         return await dbContext.Users.ToListAsync();
+    }
+
+    public async Task<Option<User>> GetById(UserId id)
+    {
+        var user = await dbContext.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
+				return user;
     }
 }

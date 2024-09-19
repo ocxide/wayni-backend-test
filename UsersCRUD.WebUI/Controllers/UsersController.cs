@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using UsersCRUD.Domain.Users;
 using UsersCRUD.WebUI.Models;
 
 namespace UsersCRUD.WebUI.Controllers;
@@ -49,4 +50,35 @@ public class UsersController : Controller
 
         return RedirectToAction("Index");
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(UserId id)
+    {
+        var user = (await mediator.Send(new Application.Users.Queries.GetById.Request { Id = id })).Unwrap();
+        return View(
+            new UserModel
+            {
+                Name = user.Name.Value,
+                Surname = user.Surname.Value,
+                DNI = user.DNI.Value,
+            }
+        );
+    }
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(UserId id, UserModel user)
+		{
+				if (!ModelState.IsValid)
+				{
+						return View(user);
+				}
+
+				var response = await mediator.Send(
+						new Application.Users.Commands.UpdateOne.Request
+						{
+								Id = id,
+								User = user.ToDto()
+						}
+				);
+		}
 }

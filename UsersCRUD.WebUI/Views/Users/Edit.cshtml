@@ -1,0 +1,40 @@
+@model UsersCRUD.WebUI.Models.UserModel
+@{ ViewData["Title"] = "Update User"; }
+
+<a asp-controller="Users" asp-action="Index" class="hover:underline">Back</a>
+
+<form method="POST" class="grid gap-4">
+  <div class="">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="Name">
+      Name
+    </label>
+		@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" } })
+
+		@Html.ValidationMessage("Name", new { @class = "text-red-500 text-sm" })
+  </div>
+
+  <div class="">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="Surname">
+      Surname
+    </label>
+		@Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" } })
+
+		@Html.ValidationMessage("Surname", new { @class = "text-red-500 text-sm" })
+  </div>
+
+  <div class="">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="DNI">
+      DNI
+    </label>
+		@Html.EditorFor(model => model.DNI, new { htmlAttributes = new { @class = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" } })
+
+		@Html.ValidationMessage("DNI", new { @class = "text-red-500 text-sm" })
+  </div>
+
+  <button
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    type="submit"
+  >
+    Save
+  </button>
+</form>

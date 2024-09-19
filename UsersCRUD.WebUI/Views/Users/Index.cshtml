@@ -3,7 +3,7 @@
 <ul class="h-full w-full gap-4 flex flex-wrap justify-center">
   @foreach (var user in Model.Users) {
   <li class="border-2 border-gray-300 rounded-lg w-[20rem]">
-    <a asp-action="Details" asp-route-id="@user.Id" class="block w-full h-full p-4">
+    <a asp-route-id="@user.Id" asp-controller="Users" asp-action="Edit" class="block w-full h-full p-4">
       <span class="font-bold pb-0">@user.Name @user.Surname</span>
 			<p class="font-bold text-gray-400 text-sm">DNI @user.DNI</p>
     </a>
