@@ -3,7 +3,7 @@ using UsersCRUD.Domain.Users;
 
 namespace UsersCRUD.Application.Users.Commands.CreateOne;
 
-public class Handler : IRequestHandler<Request>
+public class Handler : IRequestHandler<Request, int>
 {
     private readonly IUsersRepository userRepository;
 
@@ -12,9 +12,10 @@ public class Handler : IRequestHandler<Request>
         this.userRepository = userRepository;
     }
 
-    public Task Handle(Request request, CancellationToken cancellationToken)
+    public async Task<int> Handle(Request request, CancellationToken cancellationToken)
     {
         var user = request.User.ToUser(UserId.New());
-				return userRepository.CreateOne(user);
+        await userRepository.CreateOne(user);
+				return 2;
     }
 }

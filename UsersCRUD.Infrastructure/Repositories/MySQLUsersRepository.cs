@@ -14,5 +14,6 @@ public class MySQLUsersRepository : IUsersRepository
     public async Task CreateOne(User user)
     {
         await dbContext.Users.AddAsync(user);
+				await dbContext.SaveChangesAsync();
     }
 }

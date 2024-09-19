@@ -42,7 +42,9 @@ public class UsersController : Controller
             return View(user);
         }
 
-        await mediator.Send(new Application.Users.Commands.CreateOne.Request { User = user.ToDto() });
+        var response = await mediator.Send(
+            new Application.Users.Commands.CreateOne.Request { User = user.ToDto() }
+        );
 
         return RedirectToAction("Index");
     }
