@@ -8,4 +8,4 @@ COPY ./UsersCRUD.WebUI/wwwroot/tailwind.config.js .
 
 RUN npm i
 
-ENTRYPOINT ls -a && ls ../wwwroot -a && ls -a ../wwwroot/css && node_modules/.bin/tailwindcss -h && node_modules/.bin/tailwindcss --watch=always -i ../wwwroot/css/main.css -o ../wwwroot/lib/main.css
+ENTRYPOINT npm run watch:tailwind
