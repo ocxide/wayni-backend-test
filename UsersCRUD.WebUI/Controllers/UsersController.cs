@@ -4,11 +4,11 @@ using UsersCRUD.WebUI.Models;
 
 namespace UsersCRUD.WebUI.Controllers;
 
-public class HomeController : Controller
+public class UsersController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<UsersController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    public UsersController(ILogger<UsersController> logger)
     {
         _logger = logger;
     }
@@ -18,7 +18,7 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Privacy()
+    public IActionResult New()
     {
         return View();
     }
