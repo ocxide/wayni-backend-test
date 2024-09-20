@@ -65,16 +65,19 @@ public class UsersController : Controller
     [HttpGet]
     public async Task<IActionResult> Edit(UserId id)
     {
-        var user = (
-            await mediator.Send(new Application.Users.Queries.GetById.Request { Id = id })
-        ).Unwrap();
-        return View(
-            new UserModel
-            {
-                Name = user.Name.Value,
-                Surname = user.Surname.Value,
-                DNI = user.DNI.Value,
-            }
+        var user = await mediator.Send(new Application.Users.Queries.GetById.Request { Id = id });
+
+        return user.Match<IActionResult>(
+            user =>
+                View(
+                    new UserModel
+                    {
+                        Name = user.Name.Value,
+                        Surname = user.Surname.Value,
+                        DNI = user.DNI.Value,
+                    }
+                ),
+            () => RedirectToAction("Index")
         );
     }
 
@@ -86,11 +89,23 @@ public class UsersController : Controller
             return View(user);
         }
 
-        await mediator.Send(
+        var response = await mediator.Send(
             new Application.Users.Commands.UpdateOne.Request { User = user.ToDto().ToUser(id) }
         );
 
-        return RedirectToAction("Index");
+
+        return response.Match<IActionResult>(
+            _ => RedirectToAction("Index"),
+            err =>
+            {
+                if (err is DuplicatedDNIError)
+                {
+                    ModelState.AddModelError("DNI", "DNI already exists");
+                }
+
+                return View(user);
+            }
+        );
     }
 
     [HttpPost("Delete/{id}")]

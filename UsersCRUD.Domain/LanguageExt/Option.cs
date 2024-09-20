@@ -15,6 +15,14 @@ public abstract class Option<T>
         else
             throw new InvalidOperationException("Option is None");
     }
+
+    public U Match<U>(Func<T, U> ok, Func<U> none)
+    {
+        if (this is Some<T> some)
+            return ok(some.Value);
+        else
+            return none();
+    }
 }
 
 public sealed class Some<T> : Option<T>
