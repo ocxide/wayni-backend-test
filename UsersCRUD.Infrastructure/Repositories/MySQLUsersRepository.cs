@@ -6,33 +6,40 @@ namespace UsersCRUD.Infrastructure.Repositories;
 
 public class MySQLUsersRepository : IUsersRepository
 {
-    private readonly AppDbContext dbContext;
+    private readonly AppDbContext context;
 
     public MySQLUsersRepository(AppDbContext dbContext)
     {
-        this.dbContext = dbContext;
+        this.context = dbContext;
     }
 
     public async Task CreateOne(User user)
     {
-        await dbContext.Users.AddAsync(user);
-        await dbContext.SaveChangesAsync();
+        await context.Users.AddAsync(user);
+        await context.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<User>> GetAll()
     {
-        return await dbContext.Users.ToListAsync();
+        return await context.Users.ToListAsync();
     }
 
     public async Task<Option<User>> GetById(UserId id)
     {
-        var user = await dbContext.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
-				return user;
+        var user = await context.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
+        return user;
     }
 
     public async Task UpdateOne(User user)
     {
-				dbContext.Users.Update(user);
-				await dbContext.SaveChangesAsync();
+        context.Users.Update(user);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task DeleteOne(UserId id)
+    {
+        Console.WriteLine("DeleteOne: " + id);
+        await context.Users.Where(c => c.Id == id).ExecuteDeleteAsync();
+        await context.SaveChangesAsync();
     }
 }

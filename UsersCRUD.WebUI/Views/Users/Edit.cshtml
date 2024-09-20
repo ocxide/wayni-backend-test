@@ -3,7 +3,7 @@
 
 <a asp-controller="Users" asp-action="Index" class="hover:underline">Back</a>
 
-<form method="POST" class="grid gap-4">
+<form method="POST" class="grid gap-4" id="update-form">
   <div class="">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="Name">
       Name
@@ -30,11 +30,23 @@
 
 		@Html.ValidationMessage("DNI", new { @class = "text-red-500 text-sm" })
   </div>
+</form>
 
+<div class="mt-4 flex gap-x-2">
   <button
     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
     type="submit"
+    form="update-form"
   >
     Save
   </button>
-</form>
+
+	<form method="POST" asp-action="Delete" asp-route-id='@Url.ActionContext.RouteData.Values["id"]'>
+    <button
+      type="submit"
+      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    >
+      Delete
+    </button>
+  </form>
+</div>
