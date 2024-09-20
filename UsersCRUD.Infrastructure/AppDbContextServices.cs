@@ -29,6 +29,7 @@ public static class AppDbContextServices
 
     public static IServiceProvider UseDbMigrations(this IServiceProvider services)
     {
+			Console.WriteLine("UseDbMigrations2");
         var scope = services.CreateScope();
         scope.ServiceProvider.GetRequiredService<AppDbContext>().Database.Migrate();
 
