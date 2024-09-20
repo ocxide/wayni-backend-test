@@ -1,11 +1,16 @@
 # wayni-backend-test
 
-Aplicación MVC en capas sobre un CRUD de Usuarios.
+Aplicación MVC en capas con un CRUD de Usuarios.
 Los usuarios tienen las siguientes propiedades:
 
 - Nombre: string, requerido
 - Apellido: string, requerido
 - DNI: string, requerido, único, de 8 caracteres
+
+Se documentaron los posibles errores de negocio existentes mediante el uso del tipo `Result` y `Option`, y definiendo errores 
+personalizados como `DNIDuplicatedError` entre otros.
+
+Se usó tailwindcss para generar los estilos CSS de la interfaz de la aplicación.
 
 ## Despliegue con Docker Compose
 
