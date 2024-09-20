@@ -38,7 +38,6 @@ public class MySQLUsersRepository : IUsersRepository
 
     public async Task DeleteOne(UserId id)
     {
-        Console.WriteLine("DeleteOne: " + id);
         await context.Users.Where(c => c.Id == id).ExecuteDeleteAsync();
         await context.SaveChangesAsync();
     }

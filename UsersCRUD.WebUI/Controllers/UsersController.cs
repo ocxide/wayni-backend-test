@@ -85,7 +85,6 @@ public class UsersController : Controller
 		[HttpPost("Delete/{id}")]
 		public async Task<IActionResult> Delete(UserId id)
 		{
-			Console.WriteLine("Delete from controller: " + id);
 			await mediator.Send(new Application.Users.Commands.DeleteOne.Request { Id = id });
 			return RedirectToAction("Index");
 		}
