@@ -1,3 +1,4 @@
+using EntityFramework.Exceptions.Common;
 using Microsoft.EntityFrameworkCore;
 using UsersCRUD.Domain.LanguageExt;
 using UsersCRUD.Domain.Users;
@@ -13,10 +14,18 @@ public class MySQLUsersRepository : IUsersRepository
         this.context = dbContext;
     }
 
-    public async Task CreateOne(User user)
+    public async Task<Result<User, UserSaveError>> CreateOne(User user)
     {
-        await context.Users.AddAsync(user);
-        await context.SaveChangesAsync();
+        try
+        {
+            await context.Users.AddAsync(user);
+            await context.SaveChangesAsync();
+            return user;
+        }
+        catch (UniqueConstraintException)
+        {
+            return new DuplicatedDNIError();
+        }
     }
 
     public async Task<IEnumerable<User>> GetAll()
@@ -30,10 +39,18 @@ public class MySQLUsersRepository : IUsersRepository
         return user;
     }
 
-    public async Task UpdateOne(User user)
+    public async Task<Result<User, UserSaveError>> UpdateOne(User user)
     {
-        context.Users.Update(user);
-        await context.SaveChangesAsync();
+        try
+        {
+            context.Users.Update(user);
+            await context.SaveChangesAsync();
+            return user;
+        }
+        catch (UniqueConstraintException)
+        {
+            return new DuplicatedDNIError();
+        }
     }
 
     public async Task DeleteOne(UserId id)

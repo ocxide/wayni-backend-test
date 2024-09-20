@@ -6,6 +6,10 @@ public abstract class Result<T, E>
 
     public static Result<T, E> Err(E err) => new Err<T, E> { Error = err };
 
+    public static implicit operator Result<T, E>(T value) => Ok(value);
+
+    public static implicit operator Result<T, E>(E err) => Err(err);
+
     public U Match<U>(Func<T, U> ok, Func<E, U> err)
     {
         if (this is Ok<T, E> okVal)
@@ -13,8 +17,8 @@ public abstract class Result<T, E>
             return ok(okVal.Value);
         }
 
-				var errVal = (this as Err<T, E>)!.Error;
-				return err(errVal);
+        var errVal = (this as Err<T, E>)!.Error;
+        return err(errVal);
     }
 }
 
