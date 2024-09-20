@@ -15,4 +15,3 @@ RUN dotnet build -c Debug -o /app/build
 
 # Use dotnet watch for hot-reload during development
 ENTRYPOINT ["dotnet", "watch", "--non-interactive", "run", "--project=UsersCRUD.WebUI/",  "--urls=http://0.0.0.0:80"]
-
