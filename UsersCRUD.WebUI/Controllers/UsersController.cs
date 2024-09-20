@@ -48,7 +48,18 @@ public class UsersController : Controller
             new Application.Users.Commands.CreateOne.Request { User = user.ToDto() }
         );
 
-        return RedirectToAction("Index");
+        return response.Match<IActionResult>(
+            _ => RedirectToAction("Index"),
+            err =>
+            {
+                if (err is DuplicatedDNIError)
+                {
+                    ModelState.AddModelError("DNI", "DNI already exists");
+                }
+
+                return View(user);
+            }
+        );
     }
 
     [HttpGet]
@@ -79,13 +90,13 @@ public class UsersController : Controller
             new Application.Users.Commands.UpdateOne.Request { User = user.ToDto().ToUser(id) }
         );
 
-				return RedirectToAction("Index");
+        return RedirectToAction("Index");
     }
 
-		[HttpPost("Delete/{id}")]
-		public async Task<IActionResult> Delete(UserId id)
-		{
-			await mediator.Send(new Application.Users.Commands.DeleteOne.Request { Id = id });
-			return RedirectToAction("Index");
-		}
+    [HttpPost("Delete/{id}")]
+    public async Task<IActionResult> Delete(UserId id)
+    {
+        await mediator.Send(new Application.Users.Commands.DeleteOne.Request { Id = id });
+        return RedirectToAction("Index");
+    }
 }
